@@ -1,4 +1,3 @@
-var data;
 $(function() {
   $('#perka-form').on('submit', function(e) {
     e.preventDefault();
@@ -9,8 +8,14 @@ $(function() {
       var contents = e.target.result;
       var file64 = contents.split(',')[1];
       jsonObj.resume = file64;
-      data = jsonObj;
-      console.log(jsonObj);
+      $.ajax('https://getperka.com/api/2/apply', {
+        data: jsonObj,
+        type: 'POST',
+        dataType: 'JSON'
+      }).done(function(data) {
+        console.log(data);
+      })
+      
     }
     r.readAsDataURL(selected_file);
   });
